@@ -1,0 +1,45 @@
+﻿
+@{ 
+    
+
+
+    Validation.Add("name", Validator.Required("Need input"));
+    Validation.Add("age", Validator.Required("Need input"),Validator.Integer("Must be integer"));
+
+
+
+
+
+
+    if (IsPost && Validation.IsValid())
+    {
+
+        Session.Add("name", Request.Form["name"]);
+        Session.Add("age", Request.Form["age"]);
+
+        Response.Redirect("~/WebPage2.cshtml");
+    }
+
+
+}
+
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+    </head>
+    <body>
+        <form action="~/WebPage1.cshtml" method="post">
+            <label>Box1</label>
+            <input type="text" name="name" value=@Session["name"] />
+            @Html.ValidationMessage("name")
+            
+            <label>Box2</label>
+            <input type="text" name="age" value=@Session["age"] />
+            @Html.ValidationMessage("age")
+
+            <input type="submit" name="submit" value="Send" />
+        </form>
+    </body>
+</html>
