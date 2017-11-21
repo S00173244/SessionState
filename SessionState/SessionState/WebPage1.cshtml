@@ -1,6 +1,6 @@
-﻿
+﻿@using SessionState;
 @{ 
-    
+
 
 
     Validation.Add("name", Validator.Required("Need input"));
@@ -10,12 +10,13 @@
 
 
 
-
     if (IsPost && Validation.IsValid())
     {
+        PersonObject p = new PersonObject();
+        p.name = Request.Form["name"];
+        p.age = Request.Form["age"].AsInt();
+        Session.Add("person", p);
 
-        Session.Add("name", Request.Form["name"]);
-        Session.Add("age", Request.Form["age"]);
 
         Response.Redirect("~/WebPage2.cshtml");
     }
